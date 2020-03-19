@@ -9,7 +9,11 @@ const index = _path.resolve(__dirname, '../', domain.entry);
 const content = 
 `{{ imports }}
 export default {
-    version: '${domain.version}'
+    version: '${domain.version}',
+	help: () => console.log(\`
+包含方法（详情请看doc）：
+    {{ exports }}
+    \`)
 }
 
 export {
@@ -34,7 +38,7 @@ function getContent() {
         exports.push(filename);
         imports += importTemp({ filename, filepath: './' + filepath });
     })
-    return template({ imports, exports })
+    return template({ imports, exports: exports.join(', ') })
 }
 
 fs.writeFileSync(index, getContent().replace(/\\/g, '/'));
