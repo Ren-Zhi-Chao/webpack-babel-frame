@@ -15,7 +15,7 @@ package.json
 ```
 
 # 命令
-`build:index` 编译core内文件夹到index.js中
-`build:babel` 使用babel编译(当前还未实现...😁)
-`build:webpack` webpack编译打包
+`build:index` 编译core内文件夹到index.js中  
+`build:babel` 使用babel编译(当前还未实现...😁)  
+`build:webpack` webpack编译打包  
 `build` 编译index.js后使用webpack编译打包工程
