@@ -4,7 +4,7 @@ import fs from 'fs';
 import FileUtils from '../src/utils/file.util';
 import StringUtils from '../src/utils/string.util'
 const domain = require('../package.json');
-const index = _path.resolve(__dirname, '../', domain.main);
+const index = _path.resolve(__dirname, '../', domain.entry);
 
 const content = 
 `{{ imports }}

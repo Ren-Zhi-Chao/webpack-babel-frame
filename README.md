@@ -10,8 +10,8 @@ src                     # 工程主要文件
    core                 # 核心代码库，工程会将该文件夹中文件编译到入口文件
    utils                # 工具类文件夹
 .babelrc
-index.js                # 入口文件
-package.json
+index.js                # 入口文件【该文件以及位置可以在package.json中`entry`选项配置】
+package.json			# 文件输出由`main`选项配置
 ```
 
 # 命令

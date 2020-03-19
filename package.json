@@ -2,7 +2,8 @@
   "name": "webpack-babel-frame",
   "version": "1.0.0",
   "description": "webpack + babel 整合前端js模块化插件开发框架",
-  "main": "index.js",
+  "main": "lib/webpack.babel.js",
+  "entry": "index.js",
   "scripts": {
     "test": "babel-node index.js",
     "build:index": "babel-node ./builder/entry.build.js",
