@@ -8,6 +8,8 @@ const output_path = path.dirname(domain.main);
 module.exports = {
   devtool: 'none',
   entry,
+  // 解决nodejs中request等相关插件编译报错
+  target: 'node',
   output: {
     path: path.resolve(__dirname, '../', output_path),
     filename: output_file,
