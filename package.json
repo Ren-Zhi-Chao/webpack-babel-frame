@@ -12,7 +12,9 @@
     "build": "npm run build:index && npm run build:webpack"
   },
   "keywords": [
-    "webpack", "babel", "nodejs"
+    "webpack",
+    "babel",
+    "nodejs"
   ],
   "author": "zhichao.ren",
   "license": "ISC",
@@ -28,7 +30,5 @@
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11"
   },
-  "dependencies": {
-    
-  }
+  "dependencies": {}
 }
