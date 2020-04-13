@@ -8,6 +8,5 @@ const content =
 
 DoMain.help();
 `;
-console.log(content)
 
 fs.writeFileSync(index, content.replace(/\\/g, '/'));
