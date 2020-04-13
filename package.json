@@ -8,7 +8,6 @@
     "test": "babel-node local.test.js",
     "build:test": "babel-node ./builder/test.build.js",
     "build:entry": "babel-node ./builder/entry.build.js",
-    "build:babel": "babel --plugins @babel/plugin-transform-arrow-functions index.js",
     "build:webpack": "webpack --mode production --hide-modules --config builder/webpack.config.js --progress --colors",
     "build": "npm run build:entry && npm run build:webpack",
     "init": "npm run build && npm run build:test"
