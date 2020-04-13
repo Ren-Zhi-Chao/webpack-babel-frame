@@ -27,22 +27,29 @@ function findSync(startPath, relative) {
     return result;
 }
 
-// 下划线转换驼峰
+// 特殊字符传驼峰
 function toHump(name) {
-    return name.replace(/\_(\w)/g, function(all, letter){
+    return name.replace(/[~!@#$%^&*()/\|,.<>?"'();:_+-=\[\]{}](\w)/g, function(_all, letter){
         return letter.toUpperCase();
     });
 }
 
-// 驼峰转换下划线
-function toLine(name) {
-  return name.replace(/([A-Z])/g,"_$1").toLowerCase();
+// 驼峰转换特殊字符（默认：下划线）
+function toLine(name, def = '_') {
+  return name.replace(/([A-Z])/g, `${def}$1`).toLowerCase();
 }
 
 // 首字母大写
 function firstToUpCase(str) {
     str = str ? str : '';
     return str.replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
+}
+
+// 去读构建入口文件忽略文件
+// 可优化
+function readEntryIgnore() {
+    const context = fs.readFileSync(_path.resolve(__dirname, './', '.entryignore'), 'utf-8');
+    return context.split('\r\n');
 }
 /*************************工具集*************************/
 
@@ -53,7 +60,8 @@ export default {
 	help: () => console.log(\`
 包含方法（详情请看doc）：
     {{ exports }}
-    \`)
+    \`),
+    {{ exports }}
 }
 
 export {
@@ -65,18 +73,20 @@ const rowImport =
 `import {{filename}} from '{{filepath}}';
 `
 
-const coreIgnore = [ 'README.md' ];
+const coreIgnore = readEntryIgnore();
 
 function getContent() {
     const template = Handlebars.compile(content, { noEscape: true });
     const importTemp = Handlebars.compile(rowImport, { noEscape: true });
+    // 😀 想要修改检查包，修改此处地址
     const core = _path.resolve(__dirname, '../', 'src', 'core');
-    const importsStr = findSync(core, _path.resolve(index, '../')).map(row => row.replace(/.js/g, ''));
+    const importsStr = findSync(core, _path.resolve(index, '../'))
+        .filter(row => !coreIgnore.includes(_path.basename(row)))
+        .map(row => row.substring(0, row.lastIndexOf(_path.extname(row))))
     
     let imports = '';
     const exports = [];
-    importsStr.filter(row => !coreIgnore.includes(_path.basename(row)))
-        .forEach(filepath => {
+    importsStr.forEach(filepath => {
             const filename = firstToUpCase(toHump(_path.basename(filepath)));
             exports.push(filename);
             imports += importTemp({ filename, filepath: './' + filepath });
